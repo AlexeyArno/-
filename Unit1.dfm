@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -125,14 +126,12 @@ object Form1: TForm1
     Alignment = taCenter
     AutoSize = False
   end
-  object Button1: TButton
-    Left = 8
-    Top = 8
-    Width = 113
-    Height = 25
-    Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100
-    TabOrder = 0
-    OnClick = Button1Click
+  object Label16: TLabel
+    Left = 24
+    Top = 13
+    Width = 55
+    Height = 13
+    Caption = #1069#1083#1077#1084#1077#1085#1090#1086#1074
   end
   object Button2: TButton
     Left = 688
@@ -140,7 +139,7 @@ object Form1: TForm1
     Width = 111
     Height = 25
     Caption = #1053#1072#1095#1072#1090#1100' '#1089#1086#1088#1090#1080#1088#1086#1074#1082#1091
-    TabOrder = 1
+    TabOrder = 0
     OnClick = Button2Click
   end
   object Button3: TButton
@@ -149,7 +148,7 @@ object Form1: TForm1
     Width = 75
     Height = 25
     Caption = #1054#1095#1080#1089#1090#1080#1090#1100
-    TabOrder = 2
+    TabOrder = 1
     OnClick = Button3Click
   end
   object ListBox1: TListBox
@@ -158,7 +157,7 @@ object Form1: TForm1
     Width = 49
     Height = 265
     ItemHeight = 13
-    TabOrder = 3
+    TabOrder = 2
   end
   object ListBox2: TListBox
     Left = 297
@@ -166,7 +165,7 @@ object Form1: TForm1
     Width = 49
     Height = 265
     ItemHeight = 13
-    TabOrder = 4
+    TabOrder = 3
   end
   object ListBox3: TListBox
     Left = 401
@@ -174,7 +173,7 @@ object Form1: TForm1
     Width = 49
     Height = 265
     ItemHeight = 13
-    TabOrder = 5
+    TabOrder = 4
   end
   object ListBox4: TListBox
     Left = 505
@@ -182,7 +181,7 @@ object Form1: TForm1
     Width = 49
     Height = 265
     ItemHeight = 13
-    TabOrder = 6
+    TabOrder = 5
   end
   object ListBox5: TListBox
     Left = 609
@@ -190,7 +189,7 @@ object Form1: TForm1
     Width = 49
     Height = 265
     ItemHeight = 13
-    TabOrder = 7
+    TabOrder = 6
   end
   object ListBox6: TListBox
     Left = 729
@@ -198,7 +197,7 @@ object Form1: TForm1
     Width = 49
     Height = 265
     ItemHeight = 13
-    TabOrder = 8
+    TabOrder = 7
   end
   object ListBox7: TListBox
     Left = 833
@@ -206,7 +205,7 @@ object Form1: TForm1
     Width = 49
     Height = 265
     ItemHeight = 13
-    TabOrder = 9
+    TabOrder = 8
   end
   object ListBox8: TListBox
     Left = 24
@@ -214,15 +213,17 @@ object Form1: TForm1
     Width = 49
     Height = 265
     ItemHeight = 13
-    TabOrder = 10
+    TabOrder = 9
   end
   object ComboBox1: TComboBox
-    Left = 160
+    Left = 88
     Top = 8
-    Width = 145
+    Width = 113
     Height = 21
-    TabOrder = 11
+    ItemIndex = 0
+    TabOrder = 10
     Text = '10'
+    OnChange = ComboBox1Change
     Items.Strings = (
       '10'
       '100'

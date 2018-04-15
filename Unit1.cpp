@@ -11,7 +11,9 @@
 #include "Unit3.h"
 #include "Unit4.h"
 #include "Unit5.h"
+#include "Unit6.h"
 #include "Unit7.h"
+#include "Unit8.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -57,15 +59,24 @@ void FastSort(){
 	TFastSort *myThread = new TFastSort(false,basicVec);
 }
 
+void HeapSort(){
+	Form1->Timer5->Enabled = true;
+	THeapSort *myThread = new THeapSort(false, basicVec);
+}
 
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button1Click(TObject *Sender)
-{
-    Form1->ListBox8->Clear();
-	int count = StrToInt(Form1->ComboBox1->Items->Strings[ComboBox1->ItemIndex]);
+void BitwiseSort(){
+	Form1->Timer7->Enabled = true;
+	TBitwiseSort *myThread = new TBitwiseSort(false, basicVec);
+}
+
+void createSequence(){
+	Form1->ListBox8->Clear();
+	basicVec.clear();
+	srand(static_cast<long  int>(time(0)));
+	int count = StrToInt(Form1->ComboBox1->Items->Strings[Form1->ComboBox1->ItemIndex]);
 	for(int i=0; i<count;i++)
 	{
-		basicVec.push_back(rand()%20);
+		basicVec.push_back(1+rand()%20);
 	}
 	for(int j=0;j<10;j++)
 	{
@@ -75,7 +86,6 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 	Form1->ListBox8->Items->Add(".");
 	Form1->ListBox8->Items->Add(".");
 	Form1->ListBox8->Items->Add(".");
-
 }
 //---------------------------------------------------------------------------
 
@@ -84,8 +94,11 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 	SelectionSort();
 	BubbleSort();
 	InsertSort();
-//	ShellSort();
+	ShellSort();
+	HeapSort();
 	FastSort();
+	BitwiseSort();
+
 
 }
 //---------------------------------------------------------------------------
@@ -193,6 +206,18 @@ void __fastcall TForm1::Timer6Timer(TObject *Sender)
 void __fastcall TForm1::Timer7Timer(TObject *Sender)
 {
 	someLoader1(&timerPos7, Label15);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::ComboBox1Change(TObject *Sender)
+{
+	createSequence();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+	createSequence();
 }
 //---------------------------------------------------------------------------
 

@@ -12,7 +12,6 @@
 class TForm1 : public TForm
 {
 __published:	// IDE-managed Components
-	TButton *Button1;
 	TButton *Button2;
 	TButton *Button3;
 	TListBox *ListBox1;
@@ -46,7 +45,7 @@ __published:	// IDE-managed Components
 	TTimer *Timer5;
 	TTimer *Timer6;
 	TTimer *Timer7;
-	void __fastcall Button1Click(TObject *Sender);
+	TLabel *Label16;
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
 	void __fastcall Timer1Timer(TObject *Sender);
@@ -56,6 +55,8 @@ __published:	// IDE-managed Components
 	void __fastcall Timer5Timer(TObject *Sender);
 	void __fastcall Timer6Timer(TObject *Sender);
 	void __fastcall Timer7Timer(TObject *Sender);
+	void __fastcall ComboBox1Change(TObject *Sender);
+	void __fastcall FormCreate(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);

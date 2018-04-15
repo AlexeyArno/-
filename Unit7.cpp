@@ -48,27 +48,33 @@ void __fastcall TFastSort::UpdateCaption()
 	Form1->ListBox6->Items->Add(".");
 	Form1->ListBox6->Items->Add(".");
 
-//	int timeout = (End-Start)/QPT;
 	Form1->Label14->Caption = FloatToStrF(
 		(float)(t2.QuadPart-t1.QuadPart)/freq.QuadPart
 		, ffGeneral, 4, 2);
 }
 
-void quickSortR(int* a, long N) {
-	long i = 0, j = N;
-	int temp, p;
-	p = a[ N>>1 ];
-    do {
-        while ( a[i] < p ) i++;
-        while ( a[j] > p ) j--;
 
-        if (i <= j) {
-            temp = a[i]; a[i] = a[j]; a[j] = temp;
-            i++; j--;
-        }
-	} while ( i<=j );
-    if ( j > 0 ) quickSortR(a, j);
-    if ( N > i ) quickSortR(a+i, N-i);
+void quickSort(int* arr, int left, int right) {
+	  int i = left, j = right;
+	  int tmp;
+	  int pivot = arr[(left + right) / 2];
+	  while (i <= j) {
+			while (arr[i] < pivot)
+				  i++;
+			while (arr[j] > pivot)
+				  j--;
+			if (i <= j) {
+				  tmp = arr[i];
+				  arr[i] = arr[j];
+				  arr[j] = tmp;
+				  i++;
+				  j--;
+			}
+	  };
+	  if (left < j)
+			quickSort(arr, left, j);
+	  if (i < right)
+			quickSort(arr, i, right);
 }
 
 //---------------------------------------------------------------------------
@@ -77,7 +83,7 @@ void __fastcall TFastSort::Execute()
 	FreeOnTerminate = true;
 	QueryPerformanceCounter(&t1);
 	int* arr = &vec[0];
-	quickSortR(arr, vec.size());
+	quickSort(arr, 0, vec.size()-1);
 	std::vector<int> v(arr, arr + vec.size());
 	vec = v;
 	QueryPerformanceCounter(&t2);

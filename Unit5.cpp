@@ -27,30 +27,23 @@ double elapsedTime;
 //      }
 //---------------------------------------------------------------------------
 
-int increment(long inc[], long size)
+void sort()
 {
-    int p1, p2, p3, s;
-    p1 = p2 = p3 = 1;
-    s = -1;
-    do
+	int n = vec.size();
+	int gap,i,j,temp;
+
+    for(gap=n/2;gap>0;gap/=2)
     {
-        if (++s % 2)
+        for(i=gap;i<n;i+=1)
         {
-            inc[s] = 8*p1 - 6*p2 + 1;
-        }
-        else
-        {
-			inc[s] = 9*p1 - 9*p3 + 1;
-            p2 *= 2;
-            p3 *= 2;
-        }
-    p1 *= 2;
+			temp=vec[i];
+			for(j=i;j>=gap&&vec[j-gap]>temp;j-=gap)
+				vec[j]=vec[j-gap];
+
+			vec[j]=temp;
+		}
     }
-    while(3*inc[s] < size);
-
-    return s > 0 ? --s : 0;
 }
-
 
 
 __fastcall TShellSort::TShellSort(bool CreateSuspended, std::vector<int> _vec)
@@ -62,18 +55,18 @@ __fastcall TShellSort::TShellSort(bool CreateSuspended, std::vector<int> _vec)
 
 void __fastcall TShellSort::UpdateCaption()
 {
-	Form1->Timer3->Enabled = false;
-	Form1->ListBox3->Clear();
-	Form1->ListBox3->Items->Add(IntToStr(int(vec.size())));
+	Form1->Timer4->Enabled = false;
+	Form1->ListBox4->Clear();
+	Form1->ListBox4->Items->Add(IntToStr(int(vec.size())));
 	for(int i=0; i<10;i++){
-		Form1->ListBox3->Items->Add(IntToStr(vec[i]));
+		Form1->ListBox4->Items->Add(IntToStr(vec[i]));
 	}
-	Form1->ListBox3->Items->Add(".");
-	Form1->ListBox3->Items->Add(".");
-	Form1->ListBox3->Items->Add(".");
+	Form1->ListBox4->Items->Add(".");
+	Form1->ListBox4->Items->Add(".");
+	Form1->ListBox4->Items->Add(".");
 
 //	int timeout = (End-Start)/QPT;
-	Form1->Label11->Caption = FloatToStrF(
+	Form1->Label12->Caption = FloatToStrF(
 		(float)(t2.QuadPart-t1.QuadPart)/freq.QuadPart
 		, ffGeneral, 4, 2);
 }
@@ -82,22 +75,7 @@ void __fastcall TShellSort::Execute()
 {
 	FreeOnTerminate = true;
 	QueryPerformanceCounter(&t1);
-	long inc, i, j, seq[40];
-    int s;
-
-	s = increment(seq, vec.size()); // вычисление последовательности приращений
-    while (s >= 0)  // сортировка вставками с инкрементами inc[]
-    {
-		 inc = seq[s--];
-		 for (i = inc; i < vec.size(); ++i)
-         {
-			 int temp = vec[i];
-			 for (j = i; (j >= inc) && (temp < vec[j-inc]); j -= inc) {
-				vec[j] = vec[j - inc];
-			 }
-			 vec[j] = temp;
-         }
-	}
+	sort();
 	QueryPerformanceCounter(&t2);
 	Synchronize(UpdateCaption);
 }
