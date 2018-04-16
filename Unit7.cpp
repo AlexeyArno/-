@@ -54,39 +54,41 @@ void __fastcall TFastSort::UpdateCaption()
 }
 
 
-void quickSort(int* arr, int left, int right) {
+void quickSort(int left, int right) {
 	  int i = left, j = right;
 	  int tmp;
-	  int pivot = arr[(left + right) / 2];
+	  int pivot = vec[(left + right) / 2];
 	  while (i <= j) {
-			while (arr[i] < pivot)
+			while (vec[i] < pivot)
 				  i++;
-			while (arr[j] > pivot)
+			while (vec[j] > pivot)
 				  j--;
 			if (i <= j) {
-				  tmp = arr[i];
-				  arr[i] = arr[j];
-				  arr[j] = tmp;
+				  tmp = vec[i];
+				  vec[i] = vec[j];
+				  vec[j] = tmp;
 				  i++;
 				  j--;
 			}
 	  };
 	  if (left < j)
-			quickSort(arr, left, j);
+			quickSort(left, j);
 	  if (i < right)
-			quickSort(arr, i, right);
+			quickSort(i, right);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TFastSort::Execute()
 {
 	FreeOnTerminate = true;
-	QueryPerformanceCounter(&t1);
+
 	int* arr = &vec[0];
-	quickSort(arr, 0, vec.size()-1);
-	std::vector<int> v(arr, arr + vec.size());
-	vec = v;
+	QueryPerformanceCounter(&t1);
+	quickSort(0, vec.size()-1);
 	QueryPerformanceCounter(&t2);
+//	std::vector<int> v(arr, arr + vec.size());
+//	vec = v;
+
 	Synchronize(UpdateCaption);
 }
 //---------------------------------------------------------------------------
